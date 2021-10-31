@@ -1,8 +1,9 @@
 from PIL import Image
-from CommonAndUI import loadBar
+from GUI import loadBar
 
-with Image.open("TestImage2.png") as im:
+with Image.open("assets/TestImage2.png") as im:
     width, height = im.size
+    #removing this causes an error
     im.show()
 im_new = Image.new('RGB', (width, height))
 

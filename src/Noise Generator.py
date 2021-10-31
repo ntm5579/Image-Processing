@@ -1,6 +1,6 @@
 from random import randint
 from PIL import Image
-from CommonAndUI import loadBar
+from GUI import loadBar
 
 #auto mode bypasses input, for testing
 '''
