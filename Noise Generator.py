@@ -1,6 +1,5 @@
-from tkinter import *
 from random import randint
-from PIL import Image, ImageColor
+from PIL import Image
 
 #auto mode bypasses input, for testing
 '''
@@ -10,8 +9,19 @@ if auto.lower() == "yes":
     rgb = False
 else:'''
 #must indent line 13 and 14 when automode is uncommented
-size = int(input("How big of a noise square do you want? "))
-rgb = bool(input("Do you want rgb? True or False "))
+size = ''
+while size.isdigit() == False:
+    size = input("How big of a noise square do you want? Enter an integer: ")
+size = int(size)
+
+rgb = ""
+while rgb != "y" and rgb != "n":
+    rgb = input("Do you want rgb? Y/N: ").lower()
+
+if rgb == "y":
+    rgb = True
+else:
+    rgb = False
 
 #determines what mode the image is created in
 if rgb:
