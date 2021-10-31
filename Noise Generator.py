@@ -1,5 +1,6 @@
 from random import randint
 from PIL import Image
+from CommonAndUI import loadBar
 
 #auto mode bypasses input, for testing
 '''
@@ -39,6 +40,7 @@ for i in range(size):
         else:
             #grayscale mode
             im.putpixel( (i, j), randint(0,255))
+    loadBar(iteration=i, total = size)
 
 #save image to unknown location
 #im.save('simplePixel.png')
