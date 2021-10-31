@@ -2,7 +2,7 @@ from random import randint
 from PIL import Image
 from CommonAndUI import loadBar
 
-with Image.open("OnMyWay.png") as im:
+with Image.open("TestImage1.png") as im:
     width, height = im.size
     im.show()
 
