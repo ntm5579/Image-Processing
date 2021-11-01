@@ -1,7 +1,7 @@
 from PIL import Image
 from GUI import loadBar
 
-with Image.open("assets/TestImage2.png") as im:
+with Image.open("assets/TestImage2.png").convert('RGB') as im:
     width, height = im.size
     #removing this causes an error
     im.show()
@@ -37,8 +37,6 @@ def blurPixel(i, j):
     blurred_pixel = tuple(blurred_pixel)
     #print(blurred_pixel)
     return blurred_pixel
-                
-
 
 #print(width, height)
 for i in range(width):
@@ -47,9 +45,4 @@ for i in range(width):
     #print("Row", i, "is done")
     loadBar(iteration=i, total = width)
 
-
-#save image to unknown location
-#im.save('simplePixel.png')
-
-#pulls up image in default photo app
 im_new.show()
