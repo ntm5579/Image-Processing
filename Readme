@@ -1,2 +1,2 @@
 This is a set of python files that can be used for mild image processing
-Eventually they will be hopefully combined into one file, each of the current files becoming one func in a master list with an accompanying gui manager file
+All currently working functions have been merged into the Functions file, but cannot be called througth gui yet.
