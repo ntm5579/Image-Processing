@@ -16,39 +16,49 @@ def GUI_Init():
     def loadAndUnload(menuToLoad):
         for menu in menuList:
             if menu != menuToLoad:
-                menu.pack_forget()
-        menuToLoad.pack()
-
-    def loadPreviouswindow():
-        loadAndUnload(previousWindow)
+                menu.grid_forget()
+        menuToLoad.grid(column = 1, row= 1)
 
     window = Tk()
     window.geometry('600x400')
-    window.title("Test")
+    window.title("Gui Test")
 
-    backButton = Button(window, text= "Back", command=lambda: loadAndUnload(previousWindow))
-    backButton.pack()
+    #loads the last window and then takes that item off of the list of pages, watch the minus two indexing issus
+    backButton = Button(window, text= "Back", command=lambda: loadAndUnload(previousWindow[-2]))
+    backButton.grid(column=2, row= 0)
+
+    homeButton = Button(window, text= "Home", command=lambda: loadAndUnload(mainMenu))
+    homeButton.grid(column=3, row= 0)
 
     mainMenu = Frame(window)
-    mainMenu.pack()
+    mainMenu.grid(column = 1, row= 1)
     menuList.append(mainMenu)
 
-    previousWindow = mainMenu
+    previousWindow = [mainMenu]
 
-    firstLabel = Label(mainMenu, text="Test")
-    firstLabel.pack()
+    menuLabel = Label(mainMenu, text="Menu")
+    menuLabel.grid(column=0, row= 0)
 
     uploadButton = Button(mainMenu, text= "Upload your own image", command= lambda:loadAndUnload(uploadMenu))
-    uploadButton.pack()
+    uploadButton.grid(column = 0, row= 1)
 
-    #think about init for items on the frames
     uploadMenu = Frame(window)
     menuList.append(uploadMenu)
+
+    uploadLabel = Label(uploadMenu, text = "Uploading and shit")
+    uploadLabel.grid(column = 0, row= 0)
 
     createMenu = Frame(window)
     menuList.append(createMenu)
 
+    createButton = Button(mainMenu, text="Create a new image", command=lambda: loadAndUnload(createMenu))
+    createButton.grid(column = 2, row= 1)
+
+    createLabel = Label(createMenu, text = "Creating and shit")
+    createLabel.grid(column = 0, row= 0)
+
     window.mainloop()
 
+#prevents this Gui_Init from getting called on import of loadBar()
 if __name__ == "__main__":
     GUI_Init()
