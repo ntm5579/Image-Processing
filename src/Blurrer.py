@@ -10,7 +10,6 @@ def loadBar(iteration, total, prefix='', suffix='', decimals=1,length=100, fill=
     if iteration == total:
         print()
 
-#refactor to make the whole thing a method
 def blurPixel():
     weight_diag = 0.0947416
     weight_hv = 0.118318
