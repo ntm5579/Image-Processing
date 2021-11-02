@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.filedialog import askopenfilename
 from Functions import *
 
 #loadBar from Tyler Luedtke https://www.youtube.com/watch?v=MtYOrIwW1FQ
@@ -53,8 +54,18 @@ def GUI_Init():
     uploadLabel = Label(uploadMenu, text = "Uploading and shit", width= 65, height=2, bg = "Coral")
     uploadLabel.grid(column = 0, row= 0, padx= 10, columnspan=2)
 
+    filename = ''
+    def imageUpload():
+        global filename
+        Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+        filename = askopenfilename() # show an "Open" dialog box and return the path to the selected file
+        print(filename)
+        #might have to global this shit
+        #make this a preview of upload
+        uploadedImageDisplay = ''
+
     #set up command to get a file path to work with, have this function enable the blurbutton and scramble button
-    uploadImageButton = Button(uploadMenu, text= "Click hear to upload \n an Image", width = 20, height = 4)
+    uploadImageButton = Button(uploadMenu, text= "Click hear to upload \n an Image", width = 20, height = 4, command=imageUpload)
     uploadImageButton.grid(column= 0, row = 1, columnspan=2, padx= 5, pady = 5)
 
     #hook this up to the blur func and pass argument of file path, enable when you get a file path
