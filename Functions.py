@@ -4,10 +4,8 @@ from PIL import Image
 from math import sqrt
 
 def rinseAndOpen(filepath):
-    #print("Before: ", filepath)
-    #make it so all escape characters have been removed
+    #removes most common escape characters that would appear in filePaths
     for i in range(len(filepath)):
-        #print('index:', i, 'Char:', filepath[i])
         if(filepath[i] == "\\"):
             filepath = filepath[:i] + '/' + filepath[i + 1:]
         elif(filepath[i] == "\n"):
@@ -22,13 +20,11 @@ def rinseAndOpen(filepath):
             filepath = filepath[:i] + '/f' + filepath[i + 1:]
         elif(filepath[i] == "\a"):
             filepath = filepath[:i] + '/a' + filepath[i + 1:]
-    #print("After:", filepath)
     with Image.open(r"{s}".format(s = filepath)).convert('RGB') as im: #opens and assigns the image selected to im
         #shows the image, needed for init rn, would like to remove
         im.show()#marked for removal
     return im
 
-#do not call without fixing input
 def NoiseGenerator(size, rgb = False): #makes a square of rgb or bw noise size by size in dimensions.
     #determines what mode the image is created in
     if rgb: #rgb mode
@@ -44,6 +40,7 @@ def NoiseGenerator(size, rgb = False): #makes a square of rgb or bw noise size b
                 im.putpixel( (i, j), randint(0,255)) #places pixels in new image with a randomized bw value
     im.show() #diplays the finished image in photos app
 
+#needs to calculate overlapping clusters and average color value
 def NoiseClusters(size, r = 10, numClusters = -1): #makes a square of rgb or bw noise size by size in dimensions.
     hotspots = []
     if(numClusters < 0):
@@ -78,8 +75,6 @@ def NoiseClusters(size, r = 10, numClusters = -1): #makes a square of rgb or bw 
                         break
 
     im.show()
-            
-#NoiseClusters(500, r = 100)
 
 #open does not work when taking full file path from windows file select
 def Scrambler(filePath): #devitates each pixel rgb value a random amount from the original image
@@ -113,3 +108,9 @@ def Blur(filePath):
     width, height = im.size
     #add body of blurrer when it is finished
     print('Will blur Filepath', filePath, "when the method works")
+
+'''
+#for calling methods for testing without going to gui
+if(__name__ == '__main__'):
+    print('test')
+'''
