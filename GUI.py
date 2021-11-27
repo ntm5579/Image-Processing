@@ -65,7 +65,7 @@ uploadMenu = Frame(window, bg= 'white')
 menuList.append(uploadMenu)
 
 uploadLabel = Label(uploadMenu, text = "Uploading and shit", width= 65, height=2, bg = "Coral")
-uploadLabel.grid(column = 0, row= 0, padx= 5, pady= 5, columnspan=3)
+uploadLabel.grid(column = 0, row= 0, padx= 5, pady= 5, columnspan=4)
 
 filepath = ''
 def imageUpload():
@@ -74,7 +74,6 @@ def imageUpload():
     filepath = askopenfilename() # show an "Open" dialog box and return the path to the selected file
     if filepath != '':
         #print(filepath)
-        blurButton.config(state='normal')
         scrambleButton.config(state='normal')
         negativeButton.config(state='normal')
         #make this a preview of upload
@@ -88,19 +87,15 @@ def imageUpload():
         thumbNailIm.grid(column= 0, row = 1)
         '''
 
-#set up command to get a file path to work with, have this function enable the blurbutton and scramble button
+#set up command to get a file path to work with, have this function enable the scramble button
 uploadImageButton = Button(uploadMenu, text= "Upload an Image", width = 15, height = 2, command=imageUpload)
 uploadImageButton.grid(column= 0, row = 1, padx= 5, pady = 5)
 
-#hook this up to the blur func and pass argument of file path, enable when you get a file path
-blurButton = Button(uploadMenu, text= "Blur this image", state="disabled", width = 15, height = 4, command= lambda:Blur(filepath))
-blurButton.grid(column= 0, row = 2, padx= 5, pady = 5)
+scrambleButton = Button(uploadMenu, text= "Scramble this image", state="disabled", width = 30, height = 4, command= lambda:Scrambler(filepath))
+scrambleButton.grid(column= 0, row = 2, padx= 5, pady = 5, columnspan = 2)
 
-scrambleButton = Button(uploadMenu, text= "Scramble this image", state="disabled", width = 15, height = 4, command= lambda:Scrambler(filepath))
-scrambleButton.grid(column= 1, row = 2, padx= 5, pady = 5)
-
-negativeButton = Button(uploadMenu, text= "Make a negative", state="disabled", width = 15, height = 4, command= lambda:makeNegative(filepath))
-negativeButton.grid(column= 2, row = 2, padx= 5, pady = 5)
+negativeButton = Button(uploadMenu, text= "Make a negative", state="disabled", width = 30, height = 4, command= lambda:makeNegative(filepath))
+negativeButton.grid(column= 2, row = 2, padx= 5, pady = 5, columnspan = 2)
 
 createMenu = Frame(window, bg= 'white')
 menuList.append(createMenu)
@@ -120,7 +115,7 @@ individualButton.grid(column= 0, row = 1, padx= 5, pady = 5)
 indivLabel = Label(individualNoiseMenu, text = "Indivual Noise Generation", width= 65, height= 2, bg = "coral")
 indivLabel.grid(column = 0, row= 0, padx= 5, pady = 5, columnspan=2)
 
-inNumLabel = Label(individualNoiseMenu, text= "Enter the size of square you would like to generate")
+inNumLabel = Label(individualNoiseMenu, text= "Enter the resolution you would like to generate, one number will generate a square")
 inNumLabel.grid(column= 0, row = 1, padx= 5, pady = 5, columnspan=2)
 
 inNumField = Entry(individualNoiseMenu)
@@ -130,12 +125,18 @@ inNumWarningLabel = Label(individualNoiseMenu, fg = 'red', text= "That is not a 
 
 def testInput(mode, numFieldInput):
     if(mode == 'indiv'):
-        if(numFieldInput.isdecimal()):
-            NoiseGenerator(int(numFieldInput), rgb)
-        else:
+        try:
+            NoiseGenerator(size_x= int(numFieldInput), rgb= rgb)
+        except ValueError:
+            seperators = ["x", ",", " ", ","]
+            for s in seperators:
+                if numFieldInput.count(s) > 0:
+                    numFieldInput = numFieldInput.split(s)
+                    NoiseGenerator(int(numFieldInput[0]), int(numFieldInput[1]), rgb)
+                    break
             inNumWarningLabel.grid(column= 0, row = 3, padx= 5, pady = 5, columnspan=2)
     else:
-        inputList = numFieldInput.split(",")
+        inputList = numFieldInput.split(", ")
         allInt = True
         for num in inputList:
             if(num.isdecimal() != True or len(inputList) != 3):
@@ -180,7 +181,7 @@ clusterButton.grid(column= 1, row = 1, padx= 5, pady = 5)
 clusterLabel = Label(clusterNoiseMenu, text = "Cluster Noise Generation", width= 65, height= 2, bg = "coral")
 clusterLabel.grid(column = 0, row= 0, padx= 5, pady = 5, columnspan=2)
 
-clusnumLabel = Label(clusterNoiseMenu, text= "Enter Values seperated by commas in the respective order:\n Square Size, Cluster Radius, Number of Clusters ex:(100,10,40)")
+clusnumLabel = Label(clusterNoiseMenu, text= "Enter Values seperated by commas and a space in the respective order:\n Square Size, Cluster Radius, Number of Clusters ex:(100,10,40)")
 clusnumLabel.grid(column= 0, row = 1, padx= 5, pady = 5, columnspan=2)
 
 clusNumField = Entry(clusterNoiseMenu)
