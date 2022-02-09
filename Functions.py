@@ -25,19 +25,15 @@ def rinseAndOpen(filepath):
         im.show()#marked for removal
     return im
 
-def NoiseGenerator(size_x, size_y = -1, rgb = False): #makes a square of rgb or bw noise size by size in dimensions.
+def NoiseGenerator(size, rgb = False): #makes a square of rgb or bw noise size by size in dimensions.
     #determines what mode the image is created in
-    if size_y == -1:
-        size_y = size_x
-
     if rgb: #rgb mode
-        im = Image.new('RGB', (size_x, size_y))
+        im = Image.new('RGB', (size,size))
     else: #grayscale mode
-        im = Image.new('L', (size_x, size_y))
+        im = Image.new('L', (size,size))
 
-    #may need to switch size_y and size_x
-    for i in range(size_y): #loops through x values
-        for j in range(size_x): #loops through y values
+    for i in range(size): #loops through x values
+        for j in range(size): #loops through y values
             if rgb: #rgb mode
                 im.putpixel( (i, j), (randint(0,255), randint(0,255), randint(0,255))) #places pixels in new image with a randomized rgb values
             else: #grayscale mode
@@ -106,6 +102,12 @@ def makeNegative(filePath): #makes a negative of the uploaded file
             negativePixel = (255-pixel[0], 255-pixel[1], 255-pixel[2]) #flips the pixel value by subtracting from max color value
             im.putpixel( (i, j), negativePixel)
     im.show() #diplays the finished image in photos app
+
+def Blur(filePath):
+    im = rinseAndOpen(filePath)
+    width, height = im.size
+    #add body of blurrer when it is finished
+    print('Will blur Filepath', filePath, "when the method works")
 
 '''
 #for calling methods for testing without going to gui
