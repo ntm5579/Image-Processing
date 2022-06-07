@@ -74,7 +74,6 @@ def imageUpload():
     filepath = askopenfilename() # show an "Open" dialog box and return the path to the selected file
     if filepath != '':
         #print(filepath)
-        blurButton.config(state='normal')
         scrambleButton.config(state='normal')
         negativeButton.config(state='normal')
         #make this a preview of upload
@@ -92,15 +91,11 @@ def imageUpload():
 uploadImageButton = Button(uploadMenu, text= "Upload an Image", width = 15, height = 2, command=imageUpload)
 uploadImageButton.grid(column= 0, row = 1, padx= 5, pady = 5)
 
-#hook this up to the blur func and pass argument of file path, enable when you get a file path
-blurButton = Button(uploadMenu, text= "Blur this image", state="disabled", width = 15, height = 4, command= lambda:Blur(filepath))
-blurButton.grid(column= 0, row = 2, padx= 5, pady = 5)
+scrambleButton = Button(uploadMenu, text= "Scramble this image", state="disabled", width = 30, height = 4, command= lambda:Scrambler(filepath))
+scrambleButton.grid(column= 0, row = 2, padx= 5, pady = 5, columnspan=2)
 
-scrambleButton = Button(uploadMenu, text= "Scramble this image", state="disabled", width = 15, height = 4, command= lambda:Scrambler(filepath))
-scrambleButton.grid(column= 1, row = 2, padx= 5, pady = 5)
-
-negativeButton = Button(uploadMenu, text= "Make a negative", state="disabled", width = 15, height = 4, command= lambda:makeNegative(filepath))
-negativeButton.grid(column= 2, row = 2, padx= 5, pady = 5)
+negativeButton = Button(uploadMenu, text= "Make a negative", state="disabled", width = 30, height = 4, command= lambda:makeNegative(filepath))
+negativeButton.grid(column= 2, row = 2, padx= 5, pady = 5, columnspan=2)
 
 createMenu = Frame(window, bg= 'white')
 menuList.append(createMenu)
@@ -175,13 +170,13 @@ clusResLabel.grid(column= 0, row = 1, padx= 5, pady = 5, columnspan=2)
 clusResEntry = Entry(clusterNoiseMenu)
 clusResEntry.grid(column= 0, row = 2, padx= 5, pady = 5, columnspan=2)
 
-clusRadLabel = Label(clusterNoiseMenu, text= "Radius")
+clusRadLabel = Label(clusterNoiseMenu, text= "Cluster Radius")
 clusRadLabel.grid(column= 0, row = 3, padx= 5, pady = 5, columnspan=2)
 
 clusRadEntry = Entry(clusterNoiseMenu)
 clusRadEntry.grid(column= 0, row = 4, padx= 5, pady = 5, columnspan=2)
 
-clusNumLabel = Label(clusterNoiseMenu, text= "Image Size")
+clusNumLabel = Label(clusterNoiseMenu, text= "Number of Clusters")
 clusNumLabel.grid(column= 0, row = 5, padx= 5, pady = 5, columnspan=2)
 
 clusNumEntry = Entry(clusterNoiseMenu)
