@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename, test
 from Functions import *
 from PIL import ImageTk, Image
+import threading
 
 
 menuList = []
@@ -91,16 +92,16 @@ def imageUpload():
 uploadImageButton = Button(uploadMenu, text= "Upload an Image", width = 15, height = 2, command=imageUpload)
 uploadImageButton.grid(column= 0, row = 1, padx= 5, pady = 5)
 
-scrambleButton = Button(uploadMenu, text= "Scramble this image", state="disabled", width = 30, height = 4, command= lambda:Scrambler(filepath))
+scrambleButton = Button(uploadMenu, text= "Scramble this image", state="disabled", width = 30, height = 4, command= threading.Thread(target=lambda:Scrambler(filepath)).start)
 scrambleButton.grid(column= 0, row = 2, padx= 5, pady = 5, columnspan=2)
 
-negativeButton = Button(uploadMenu, text= "Make a negative", state="disabled", width = 30, height = 4, command= lambda:makeNegative(filepath))
+negativeButton = Button(uploadMenu, text= "Make a negative", state="disabled", width = 30, height = 4, command= threading.Thread(target=lambda:makeNegative(filepath)).start)
 negativeButton.grid(column= 2, row = 2, padx= 5, pady = 5, columnspan=2)
 
 createMenu = Frame(window, bg= 'white')
 menuList.append(createMenu)
 
-createButton = Button(mainMenu, text="Create a new image", width = 20, height = 4, command=lambda: loadAndUnload(createMenu))
+createButton = Button(mainMenu, text="Create a new image", width = 20, height = 4, command= lambda:loadAndUnload(createMenu))
 createButton.grid(column = 1, row= 1, padx= 5)
 
 createLabel = Label(createMenu, text = "Creating and shit", width= 65, height= 2, bg = "coral")
@@ -109,7 +110,7 @@ createLabel.grid(column = 0, row= 0, padx= 5, pady = 5, columnspan=2)
 individualNoiseMenu = Frame(window)
 menuList.append(individualNoiseMenu)
 
-individualButton = Button(createMenu,text = "Individual Noise", width=20, height= 2, command=lambda:loadAndUnload(individualNoiseMenu))
+individualButton = Button(createMenu,text = "Individual Noise", width=20, height= 2, command= lambda:loadAndUnload(individualNoiseMenu))
 individualButton.grid(column= 0, row = 1, padx= 5, pady = 5)
 
 indivLabel = Label(individualNoiseMenu, text = "Indivual Noise Generation", width= 65, height= 2, bg = "coral")
@@ -151,7 +152,7 @@ bwButton.grid(column= 0, row = 5, padx= 5, pady = 5)
 rgbButton = Button(individualNoiseMenu, text= "Rgb", width = 15, height = 2, command= lambda: switchBwRgb('rgb'))
 rgbButton.grid(column= 1, row = 5, padx= 5, pady = 5)
 
-inNoiseButton = Button(individualNoiseMenu, text= "Make Some Noise", width = 60, height = 4, command= lambda: testInput(inNumField.get()))
+inNoiseButton = Button(individualNoiseMenu, text= "Make Some Noise", width = 60, height = 4, command= threading.Thread(target=lambda:testInput(inNumField.get())).start)
 inNoiseButton.grid(column= 0, row = 6, padx= 5, pady = 5, columnspan=2)
 
 #-------------------------------------------------
@@ -184,7 +185,7 @@ clusNumEntry.grid(column= 0, row = 6, padx= 5, pady = 5, columnspan=2)
 
 clusNumWarningLabel = Label(clusterNoiseMenu, fg = 'red', text= "There was an issue with your input, make sure there are no spaces\n and there are three elements seperated by commas")
 
-clusNoiseButton = Button(clusterNoiseMenu, text= "Make Some Noise", width = 60, height = 4, command= lambda: NoiseClusters(int(clusResEntry.get()), int(clusRadEntry.get()), int(clusNumEntry.get())))
+clusNoiseButton = Button(clusterNoiseMenu, text= "Make Some Noise", width = 60, height = 4, command= threading.Thread(target=lambda: NoiseClusters(int(clusResEntry.get()), int(clusRadEntry.get()), int(clusNumEntry.get()))).start)
 clusNoiseButton.grid(column= 0, row = 7, padx= 5, pady = 5, columnspan=2)
 #-------------------------------------------------
 

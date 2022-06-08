@@ -85,7 +85,8 @@ def Scrambler(filePath): #devitates each pixel rgb value a random amount from th
             pixel = im.getpixel( (i, j) )#stores the rgb values of the current pixel being worked on
             randomized_pixel = []
             for h in range(3): #generates a random value for each color channel to deviate from the original pixel
-                random_value = randint(-255,255)
+                percentRange = int(pixel[h] / 10)
+                random_value = pixel[h] + randint(-percentRange, percentRange)
                 while pixel[h] + random_value < 255 and pixel[h] + random_value > 0: #makes sure the new pixel value is displayable in rgb format (0-255), rerandomizes if not
                     random_value = randint(-255, 255)
                 randomized_pixel.append(pixel[h] + random_value)
